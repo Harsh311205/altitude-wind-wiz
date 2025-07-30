@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wind, ArrowUp, Thermometer } from 'lucide-react';
+import { Wind, ArrowUp, Thermometer, Droplets, Gauge } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 
 interface WindData {
@@ -7,6 +7,8 @@ interface WindData {
   windSpeed: number;
   windDirection: number;
   temperature?: number;
+  humidity?: number;
+  pressure?: number;
   unit: string;
 }
 
@@ -89,13 +91,28 @@ export const WindVisualization: React.FC<WindVisualizationProps> = ({
             </div>
 
             {/* Additional Data */}
-            <div className="flex flex-col items-end space-y-2">
-              {windData.temperature && (
-                <div className="flex items-center space-x-2">
-                  <Thermometer className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-lg font-semibold">{windData.temperature}°C</span>
-                </div>
-              )}
+            <div className="flex flex-col items-end space-y-3">
+              {/* Weather Parameters */}
+              <div className="grid grid-cols-1 gap-2 text-right">
+                {windData.temperature && (
+                  <div className="flex items-center justify-end space-x-2">
+                    <span className="text-lg font-semibold">{windData.temperature}°C</span>
+                    <Thermometer className="w-4 h-4 text-orange-500" />
+                  </div>
+                )}
+                {windData.humidity && (
+                  <div className="flex items-center justify-end space-x-2">
+                    <span className="text-lg font-semibold">{windData.humidity}%</span>
+                    <Droplets className="w-4 h-4 text-blue-500" />
+                  </div>
+                )}
+                {windData.pressure && (
+                  <div className="flex items-center justify-end space-x-2">
+                    <span className="text-lg font-semibold">{windData.pressure} hPa</span>
+                    <Gauge className="w-4 h-4 text-purple-500" />
+                  </div>
+                )}
+              </div>
               
               {/* Wind Intensity Bars */}
               <div className="flex space-x-1">

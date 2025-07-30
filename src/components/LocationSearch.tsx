@@ -100,13 +100,28 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 
         {currentLocation && (
           <div className="mt-4 p-4 bg-background/60 rounded-lg backdrop-blur-sm animate-altitude-rise">
-            <div className="flex items-center space-x-2">
-              <MapPin className="w-5 h-5 text-primary" />
-              <div>
-                <div className="font-semibold text-foreground">{currentLocation.name}</div>
-                <div className="text-sm text-muted-foreground">
-                  {currentLocation.lat.toFixed(4)}°, {currentLocation.lon.toFixed(4)}°
-                  {currentLocation.country && ` • ${currentLocation.country}`}
+            <div className="space-y-3">
+              <div className="flex items-center space-x-2">
+                <MapPin className="w-5 h-5 text-primary" />
+                <div>
+                  <div className="font-semibold text-foreground">{currentLocation.name}</div>
+                  {currentLocation.country && (
+                    <div className="text-sm text-muted-foreground">{currentLocation.country}</div>
+                  )}
+                </div>
+              </div>
+              
+              {/* Enhanced Coordinates Display */}
+              <div className="grid grid-cols-2 gap-4 mt-3 p-3 bg-primary/5 rounded-lg">
+                <div className="text-center">
+                  <div className="text-xs text-muted-foreground uppercase tracking-wider">Latitude</div>
+                  <div className="text-lg font-bold text-primary">{currentLocation.lat.toFixed(6)}°</div>
+                  <div className="text-xs text-muted-foreground">{currentLocation.lat >= 0 ? 'N' : 'S'}</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-xs text-muted-foreground uppercase tracking-wider">Longitude</div>
+                  <div className="text-lg font-bold text-primary">{currentLocation.lon.toFixed(6)}°</div>
+                  <div className="text-xs text-muted-foreground">{currentLocation.lon >= 0 ? 'E' : 'W'}</div>
                 </div>
               </div>
             </div>

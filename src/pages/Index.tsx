@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { LocationSearch } from '@/components/LocationSearch';
 import { WindVisualization } from '@/components/WindVisualization';
 import { WindMap } from '@/components/WindMap';
+import { CoordinateDisplay } from '@/components/CoordinateDisplay';
 import { useWindyAPI } from '@/hooks/useWindyAPI';
 import { RefreshCw, Wind, Layers, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -77,6 +78,11 @@ const Index = () => {
           </Card>
         )}
 
+        {/* Coordinate Display */}
+        {selectedLocation && (
+          <CoordinateDisplay location={selectedLocation} />
+        )}
+
         {/* Main Content */}
         {windData.length > 0 && (
           <div className="grid lg:grid-cols-2 gap-8">
@@ -140,17 +146,27 @@ const Index = () => {
                         <div className="text-2xl font-bold">{selectedWindData.windDirection}°</div>
                       </div>
                       {selectedWindData.temperature && (
-                        <>
-                          <div>
-                            <div className="text-primary-foreground/80 text-sm">Temperature</div>
-                            <div className="text-2xl font-bold">{selectedWindData.temperature}°C</div>
-                          </div>
-                          <div>
-                            <div className="text-primary-foreground/80 text-sm">Altitude</div>
-                            <div className="text-2xl font-bold">{selectedWindData.altitude}{selectedWindData.unit}</div>
-                          </div>
-                        </>
+                        <div>
+                          <div className="text-primary-foreground/80 text-sm">Temperature</div>
+                          <div className="text-2xl font-bold">{selectedWindData.temperature}°C</div>
+                        </div>
                       )}
+                      {selectedWindData.humidity && (
+                        <div>
+                          <div className="text-primary-foreground/80 text-sm">Humidity</div>
+                          <div className="text-2xl font-bold">{selectedWindData.humidity}%</div>
+                        </div>
+                      )}
+                      {selectedWindData.pressure && (
+                        <div>
+                          <div className="text-primary-foreground/80 text-sm">Pressure</div>
+                          <div className="text-2xl font-bold">{selectedWindData.pressure} hPa</div>
+                        </div>
+                      )}
+                      <div>
+                        <div className="text-primary-foreground/80 text-sm">Altitude</div>
+                        <div className="text-2xl font-bold">{selectedWindData.altitude}{selectedWindData.unit}</div>
+                      </div>
                     </div>
                   </div>
                 </Card>
